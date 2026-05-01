@@ -163,7 +163,13 @@ body{
 .section-title{
   font-size:28px;
   font-weight:800;
-  margin-bottom:20px;
+  margin-bottom:8px;
+}
+
+.section-subtitle{
+  color:var(--muted);
+  margin-bottom:22px;
+  font-size:15px;
 }
 
 /* TICKET */
@@ -207,6 +213,11 @@ body{
   color:var(--primary);
   font-size:12px;
   font-weight:700;
+}
+
+.badge.sold{
+  background:#fee2e2;
+  color:#dc2626;
 }
 
 .ticket-body{
@@ -258,6 +269,18 @@ body{
   min-width:18px;
   text-align:center;
   font-size:16px;
+  font-weight:700;
+}
+
+/* SOLD OUT */
+
+.sold-out{
+  opacity:.7;
+}
+
+.sold-text{
+  font-size:15px;
+  color:#dc2626;
   font-weight:700;
 }
 
@@ -429,23 +452,27 @@ hr{
 <div class="section">
 
 <h2 class="section-title">
-🎟️ Kategori Tiket
+🎟️ TIKET TAMBAHAN
 </h2>
+
+<div class="section-subtitle">
+Limited additional access untuk konser POLIPONI Experience
+</div>
 
 <div class="ticket-grid">
 
-<!-- FESTIVAL -->
+<!-- FESTIVAL SOLD OUT -->
 
-<div class="ticket">
+<div class="ticket sold-out">
 
 <div class="ticket-header">
 
 <div class="ticket-name">
-REGULAR • FESTIVAL
+FESTIVAL
 </div>
 
-<div class="badge">
-On Sale
+<div class="badge sold">
+SOLD OUT
 </div>
 
 </div>
@@ -453,14 +480,12 @@ On Sale
 <div class="ticket-body">
 
 <div class="price">
-Rp320.000
-<small>Tiket festival reguler</small>
+Sold Out
+<small>Tiket festival sudah habis</small>
 </div>
 
-<div class="counter">
-<button onclick="dec('festival')">−</button>
-<span id="festival">0</span>
-<button onclick="inc('festival')">+</button>
+<div class="sold-text">
+Tidak Tersedia
 </div>
 
 </div>
@@ -473,11 +498,11 @@ Rp320.000
 <div class="ticket-header">
 
 <div class="ticket-name">
-REGULAR • PREMIUM
+PREMIUM
 </div>
 
 <div class="badge">
-Best Seller
+Available
 </div>
 
 </div>
@@ -485,7 +510,7 @@ Best Seller
 <div class="ticket-body">
 
 <div class="price">
-Rp495.000
+Rp400.000
 <small>Akses premium concert</small>
 </div>
 
@@ -505,7 +530,7 @@ Rp495.000
 <div class="ticket-header">
 
 <div class="ticket-name">
-REGULAR • FAST TRACK
+FAST TRACK
 </div>
 
 <div class="badge">
@@ -517,8 +542,8 @@ Priority Access
 <div class="ticket-body">
 
 <div class="price">
-Rp595.000
-<small>Jalur prioritas masuk</small>
+Rp600.000
+<small>Jalur prioritas masuk venue</small>
 </div>
 
 <div class="counter">
@@ -538,11 +563,6 @@ Rp595.000
 <div class="summary">
 
 <h3>Rincian Pesanan</h3>
-
-<div class="row">
-<span>Festival</span>
-<span id="fTotal">Rp0</span>
-</div>
 
 <div class="row">
 <span>Premium</span>
@@ -587,15 +607,13 @@ Rp595.000
 <script>
 
 let data = {
-  festival:0,
   premium:0,
   fast:0
 };
 
 const price = {
-  festival:320000,
-  premium:495000,
-  fast:595000
+  premium:400000,
+  fast:600000
 };
 
 function inc(type){
@@ -622,17 +640,14 @@ function rupiah(num){
 
 function update(){
 
-  let f = data.festival * price.festival;
   let p = data.premium * price.premium;
   let fa = data.fast * price.fast;
 
-  let total = f + p + fa;
+  let total = p + fa;
 
-  document.getElementById("festival").innerText = data.festival;
   document.getElementById("premium").innerText = data.premium;
   document.getElementById("fast").innerText = data.fast;
 
-  document.getElementById("fTotal").innerText = rupiah(f);
   document.getElementById("pTotal").innerText = rupiah(p);
   document.getElementById("faTotal").innerText = rupiah(fa);
 
@@ -646,7 +661,6 @@ function update(){
 function beli(){
 
   let total =
-  (data.festival * price.festival) +
   (data.premium * price.premium) +
   (data.fast * price.fast);
 
@@ -654,7 +668,7 @@ function beli(){
 
     let url =
     "https://soekarnofestrun2026-rgb.github.io/Form-Pembelian-TICKET/" +
-    `?festival=${data.festival}&premium=${data.premium}&fast=${data.fast}&total=${total}`;
+    `?premium=${data.premium}&fast=${data.fast}&total=${total}`;
 
     window.location.href = url;
 
