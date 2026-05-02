@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -36,8 +35,6 @@ body{
   overflow-x:hidden;
 }
 
-/* BACKGROUND */
-
 .bg{
   position:fixed;
   inset:0;
@@ -68,8 +65,6 @@ body{
   right:-100px;
 }
 
-/* HEADER */
-
 .header{
   display:flex;
   justify-content:space-between;
@@ -90,8 +85,6 @@ body{
   font-weight:600;
   color:var(--muted);
 }
-
-/* STEP */
 
 .steps{
   display:flex;
@@ -130,15 +123,11 @@ body{
   white-space:nowrap;
 }
 
-/* CONTAINER */
-
 .container{
   width:92%;
   max-width:1200px;
   margin:auto;
 }
-
-/* BANNER */
 
 .banner{
   overflow:hidden;
@@ -154,8 +143,6 @@ body{
   display:block;
 }
 
-/* SECTION */
-
 .section{
   margin-bottom:28px;
 }
@@ -168,11 +155,16 @@ body{
 
 .section-subtitle{
   color:var(--muted);
-  margin-bottom:22px;
+  margin-bottom:10px;
   font-size:15px;
 }
 
-/* TICKET */
+.limit-note{
+  color:#dc2626;
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:22px;
+}
 
 .ticket-grid{
   display:grid;
@@ -272,8 +264,6 @@ body{
   font-weight:700;
 }
 
-/* SOLD OUT */
-
 .sold-out{
   opacity:.7;
 }
@@ -283,8 +273,6 @@ body{
   color:#dc2626;
   font-weight:700;
 }
-
-/* SUMMARY */
 
 .summary{
   background:white;
@@ -311,8 +299,6 @@ hr{
   border-top:1px solid var(--border);
   margin:18px 0;
 }
-
-/* FOOTER */
 
 .footer{
   position:fixed;
@@ -372,8 +358,6 @@ hr{
   cursor:not-allowed;
 }
 
-/* MOBILE */
-
 @media(max-width:768px){
 
 .banner img{
@@ -405,24 +389,18 @@ hr{
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="bg"></div>
 
-<!-- HEADER -->
-
 <div class="header">
   <div class="logo">POLIPONI</div>
   <div class="lang">🇮🇩 Indonesia</div>
 </div>
 
-<!-- STEP -->
-
 <div class="steps">
-
 <div class="step active">1</div>
 <div class="step-text">Pilih Kategori</div>
 
@@ -434,81 +412,50 @@ hr{
 
 <div class="step">4</div>
 <div class="step-text">Selesai</div>
-
 </div>
 
-<!-- CONTENT -->
-
 <div class="container">
-
-<!-- BANNER -->
 
 <div class="banner">
   <img src="banner.jpg" alt="Banner Event">
 </div>
 
-<!-- SECTION -->
-
 <div class="section">
 
-<h2 class="section-title">
-🎟️ TIKET TAMBAHAN
-</h2>
+<h2 class="section-title">🎟️ TIKET TAMBAHAN</h2>
 
 <div class="section-subtitle">
 Limited additional access untuk konser POLIPONI Experience
 </div>
 
+<div class="limit-note">
+Maksimal pembelian 10 tiket per transaksi
+</div>
+
 <div class="ticket-grid">
 
-<!-- FESTIVAL SOLD OUT -->
-
 <div class="ticket sold-out">
-
 <div class="ticket-header">
-
-<div class="ticket-name">
-FESTIVAL
-</div>
-
-<div class="badge sold">
-SOLD OUT
-</div>
-
+<div class="ticket-name">FESTIVAL</div>
+<div class="badge sold">SOLD OUT</div>
 </div>
 
 <div class="ticket-body">
-
 <div class="price">
 Sold Out
 <small>Tiket festival sudah habis</small>
 </div>
-
-<div class="sold-text">
-Tidak Tersedia
-</div>
-
+<div class="sold-text">Tidak Tersedia</div>
 </div>
 </div>
-
-<!-- PREMIUM -->
 
 <div class="ticket">
-
 <div class="ticket-header">
-
-<div class="ticket-name">
-PREMIUM
-</div>
-
-<div class="badge">
-Available
-</div>
-
+<div class="ticket-name">PREMIUM</div>
+<div class="badge">Available</div>
 </div>
 
 <div class="ticket-body">
-
 <div class="price">
 Rp400.000
 <small>Akses premium concert</small>
@@ -523,24 +470,13 @@ Rp400.000
 </div>
 </div>
 
-<!-- FAST TRACK -->
-
 <div class="ticket">
-
 <div class="ticket-header">
-
-<div class="ticket-name">
-FAST TRACK
-</div>
-
-<div class="badge">
-Priority Access
-</div>
-
+<div class="ticket-name">FAST TRACK</div>
+<div class="badge">Priority Access</div>
 </div>
 
 <div class="ticket-body">
-
 <div class="price">
 Rp600.000
 <small>Jalur prioritas masuk venue</small>
@@ -557,8 +493,6 @@ Rp600.000
 
 </div>
 </div>
-
-<!-- SUMMARY -->
 
 <div class="summary">
 
@@ -585,10 +519,7 @@ Rp600.000
 
 </div>
 
-<!-- FOOTER -->
-
 <div class="footer">
-
 <div class="footer-wrap">
 
 <div class="total">
@@ -601,7 +532,6 @@ Rp600.000
 </button>
 
 </div>
-
 </div>
 
 <script>
@@ -616,13 +546,21 @@ const price = {
   fast:600000
 };
 
+const MAX_TOTAL = 10;
+
+function totalQty(){
+  return data.premium + data.fast;
+}
+
 function inc(type){
 
-  if(data[type] < 4){
-    data[type]++;
-    update();
+  if(totalQty() >= MAX_TOTAL){
+    alert("Maksimal pembelian 10 tiket per transaksi.");
+    return;
   }
 
+  data[type]++;
+  update();
 }
 
 function dec(type){
@@ -642,7 +580,6 @@ function update(){
 
   let p = data.premium * price.premium;
   let fa = data.fast * price.fast;
-
   let total = p + fa;
 
   document.getElementById("premium").innerText = data.premium;
@@ -655,7 +592,6 @@ function update(){
   document.getElementById("grand2").innerText = rupiah(total);
 
   document.getElementById("buy").disabled = total === 0;
-
 }
 
 function beli(){
@@ -668,7 +604,7 @@ function beli(){
 
     let url =
     "https://soekarnofestrun2026-rgb.github.io/Form-Pembelian-TICKET/" +
-    `?premium=${data.premium}&fast=${data.fast}&total=${total}`;
+    `?premium=${data.premium}&fast=${data.fast}&qty=${totalQty()}&total=${total}`;
 
     window.location.href = url;
 
